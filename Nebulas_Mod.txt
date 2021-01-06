@@ -1,0 +1,285 @@
+disabled rule("Force Orb Order | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+}
+
+rule("Global CParray Initialize | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+}
+
+
+rule("2 Orbs Force Order | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.CPchange[1] == True;
+		Event Player.TCDdetect == False;
+		Event Player.Fail == False;
+		Is True For Any(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Position Of(Event Player)), Y Component Of(Current Array Element)), False) : Current Array Element)
+			< Event Player.TCDradD[Current Array Index] || Distance Between(Position Of(Event Player) + Vector(False, 1.250, False),
+			Current Array Element) < Event Player.TCDradD[Current Array Index])) == True;
+			Global.CParray2orb[Event Player.Checkpoint] == True;
+	}
+
+	actions
+	{
+		Event Player.TCDdetect = Index Of Array Value(Event Player.TCDpos, Filtered Array(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Current Array Element), Y Component Of(Position Of(Event Player))), False) : Current Array Element)
+			<= Event Player.TCDrad[Current Array Index] + 1.450 || Distance Between(Position Of(Event Player) + Vector(False, 1.250,
+			False), Current Array Element) <= Event Player.TCDrad[Current Array Index] + 1.450))) + True;
+		If(Absolute Value(Event Player.TCDtim[Event Player.TCDdetect - True]) != 9999);
+			Play Effect(Event Player, Ring Explosion Sound, Color(White), Event Player, 69);
+			If(Event Player.TCDtim[Event Player.TCDdetect - True] < 9900);
+				Event Player.TCDFdisplay[Event Player.TCDdetect - True] = True;
+				Event Player.TCDFdisplay[6] = (Event Player.TCDFdisplay[False] ? Event Player.TCDtim[False] : False) + (
+					Event Player.TCDFdisplay[True] ? Event Player.TCDtim[True] : False) + (
+					Event Player.TCDFdisplay[2] ? Event Player.TCDtim[2] : False);
+			Else;
+				Event Player.TCDFdisplay[Event Player.TCDdetect + 2] = True;
+				Set Secondary Fire Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 2 ? True : False);
+				Set Ability 1 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 3 ? True : False);
+				Set Ability 2 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 5 ? True : False);
+			End;
+
+            "Allow if in order"
+			If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
+				!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True));
+				If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+					Event Player.Lock = False;
+				End;
+				
+
+			"If arrive at TCD2pos / Z Component of TCD, deny"
+			Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+				disabled Small Message(All Players(All Teams), Custom String("TCD2pos / Z Component of TCD / Disable This Message"));
+				Call Subroutine(CPfail);
+		End;
+		Event Player.TCDdetect = False;
+		Loop If Condition Is True;
+	}
+}
+
+rule("3 Orbs Force Order | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.CPchange[1] == True;
+		Event Player.TCDdetect == False;
+		Event Player.Fail == False;
+		Is True For Any(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Position Of(Event Player)), Y Component Of(Current Array Element)), False) : Current Array Element)
+			< Event Player.TCDradD[Current Array Index] || Distance Between(Position Of(Event Player) + Vector(False, 1.250, False),
+			Current Array Element) < Event Player.TCDradD[Current Array Index])) == True;
+			Global.CParray3orb[Event Player.Checkpoint] == True;
+	}
+
+	actions
+	{
+		Event Player.TCDdetect = Index Of Array Value(Event Player.TCDpos, Filtered Array(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Current Array Element), Y Component Of(Position Of(Event Player))), False) : Current Array Element)
+			<= Event Player.TCDrad[Current Array Index] + 1.450 || Distance Between(Position Of(Event Player) + Vector(False, 1.250,
+			False), Current Array Element) <= Event Player.TCDrad[Current Array Index] + 1.450))) + True;
+		If(Absolute Value(Event Player.TCDtim[Event Player.TCDdetect - True]) != 9999);
+			Play Effect(Event Player, Ring Explosion Sound, Color(White), Event Player, 69);
+			If(Event Player.TCDtim[Event Player.TCDdetect - True] < 9900);
+				Event Player.TCDFdisplay[Event Player.TCDdetect - True] = True;
+				Event Player.TCDFdisplay[6] = (Event Player.TCDFdisplay[False] ? Event Player.TCDtim[False] : False) + (
+					Event Player.TCDFdisplay[True] ? Event Player.TCDtim[True] : False) + (
+					Event Player.TCDFdisplay[2] ? Event Player.TCDtim[2] : False);
+			Else;
+				Event Player.TCDFdisplay[Event Player.TCDdetect + 2] = True;
+				Set Secondary Fire Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 2 ? True : False);
+				Set Ability 1 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 3 ? True : False);
+				Set Ability 2 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 5 ? True : False);
+			End;
+            "Allow if in order"
+			If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
+				!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True));
+				If((Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True));
+					If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+						!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+						Event Player.Lock = False;
+					End;
+				Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+						!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+						Call Subroutine(CPfail);
+				End;
+			"If arrive at TCD2pos / Z Component of TCD, deny"
+			Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+				Call Subroutine(CPfail);
+			"If arrive at TCD3pos / Y Component of TCD2, deny"
+			Else If((Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True));
+				Call Subroutine(CPfail);
+			End;
+		End;
+		Event Player.TCDdetect = False;
+		Loop If Condition Is True;
+	}
+}
+
+rule("Order Text for KNEAT | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	actions
+	{
+			Create In-World Text(Event Player, !Event Player.TCDFdisplay[3] == True && (Global.CParray3orb[Event Player.Checkpoint] || Global.CParray2orb[Event Player.Checkpoint]) == True ? Custom String("1") : Custom String(""), 
+				Global.TCDpos[Event Player.Checkpoint] + Vector(0,.5,0),
+				1.5, Clip Against Surfaces, Visible To Position and String, Global.OrbColorArrayNebula[Global.OrbColorNebula], Default Visibility);
+			
+			Create In-World Text(Event Player, !Event Player.TCDFdisplay[4] == True && (Global.CParray3orb[Event Player.Checkpoint] || Global.CParray2orb[Event Player.Checkpoint]) == True ? (Global.TCD3pos[Event Player.Checkpoint] ? Custom String("3") : Custom String("2")) : Custom String(""),
+				Global.TCD2pos[Event Player.Checkpoint] + Vector(0,.5,0), 
+				1.5, Clip Against Surfaces, Visible To Position and String, Global.OrbColorArrayNebula[Global.OrbColorNebula], Default Visibility);
+				
+			Create In-World Text(Event Player, !Event Player.TCDFdisplay[5] == True && (Global.CParray3orb[Event Player.Checkpoint] || Global.CParray2orb[Event Player.Checkpoint]) == True ? (Global.TCD2pos[Event Player.Checkpoint] ? Custom String("2") : Custom String("3")) : Custom String(""),
+				Global.TCD3pos[Event Player.Checkpoint] + Vector(0,.5,0), 
+				1.5, Clip Against Surfaces, Visible To Position and String, Global.OrbColorArrayNebula[Global.OrbColorNebula], Default Visibility);
+	}
+}
+
+rule("TCD detect Modded | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.CPchange[1] == True;
+		Event Player.TCDdetect == False;
+		Event Player.Fail == False;
+		Is True For Any(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Position Of(Event Player)), Y Component Of(Current Array Element)), False) : Current Array Element)
+			< Event Player.TCDradD[Current Array Index] || Distance Between(Position Of(Event Player) + Vector(False, 1.250, False),
+			Current Array Element) < Event Player.TCDradD[Current Array Index])) == True;
+			Global.CParray3orb[Event Player.Checkpoint] == False;
+			Global.CParray2orb[Event Player.Checkpoint] == False;
+	}
+
+	actions
+	{
+		Event Player.TCDdetect = Index Of Array Value(Event Player.TCDpos, Filtered Array(Event Player.TCDpos,
+			Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+			Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+			Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+			Y Component Of(Current Array Element), Y Component Of(Position Of(Event Player))), False) : Current Array Element)
+			<= Event Player.TCDrad[Current Array Index] + 1.450 || Distance Between(Position Of(Event Player) + Vector(False, 1.250,
+			False), Current Array Element) <= Event Player.TCDrad[Current Array Index] + 1.450))) + True;
+		If(Absolute Value(Event Player.TCDtim[Event Player.TCDdetect - True]) != 9999);
+			Play Effect(Event Player, Ring Explosion Sound, Color(White), Event Player, 69);
+			If(Event Player.TCDtim[Event Player.TCDdetect - True] < 9900);
+				Event Player.TCDFdisplay[Event Player.TCDdetect - True] = True;
+				Event Player.TCDFdisplay[6] = (Event Player.TCDFdisplay[False] ? Event Player.TCDtim[False] : False) + (
+					Event Player.TCDFdisplay[True] ? Event Player.TCDtim[True] : False) + (
+					Event Player.TCDFdisplay[2] ? Event Player.TCDtim[2] : False);
+			Else;
+				Event Player.TCDFdisplay[Event Player.TCDdetect + 2] = True;
+				Set Secondary Fire Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 2 ? True : False);
+				Set Ability 1 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 3 ? True : False);
+				Set Ability 2 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 5 ? True : False);
+			End;
+			If(Array Contains(Event Player.Lock, True));
+				If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True) && (
+					Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True) && (
+					Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
+					!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True));
+					Event Player.Lock = False;
+				End;
+			End;
+		Else;
+			If(Event Player.TCDtim[Event Player.TCDdetect - True] < False);
+				Play Effect(Event Player, Ring Explosion Sound, Color(White), Event Player, 69);
+				Disable Movement Collision With Environment(Event Player, True);
+				While(Is True For Any(Event Player.TCDpos,
+					Current Array Element && !Event Player.TCDFdisplay[Current Array Index] && !Event Player.TCDFdisplay[Current Array Index + 3] && (
+					Distance Between(Position Of(Event Player) + Vector(False, 0.450, False),
+					Event Player.TCDeff[Current Array Index] ? Current Array Element * Vector(True, False, True) + Vector(False, Max(
+					Y Component Of(Position Of(Event Player)), Y Component Of(Current Array Element)), False) : Current Array Element)
+					< Event Player.TCDradD[Current Array Index] || Distance Between(Position Of(Event Player) + Vector(False, 1.250, False),
+					Current Array Element) < Event Player.TCDradD[Current Array Index])));
+					Wait(0.016, Ignore Condition);
+				End;
+				Enable Movement Collision With Environment(Event Player);
+			Else;
+				Call Subroutine(CPfail);
+			End;
+		End;
+		Event Player.TCDdetect = False;
+		Loop If Condition Is True;
+	}
+}
+
+rule("Workshop Settings | Nebula's Mod")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	actions
+	{
+		Global.OrbColorArrayNebula = Array(Color(White), Color(Yellow), Color(Green), Color(Purple), Color(Red),
+			Color(Blue), Color(Aqua), Color(Orange), Color(Sky Blue), Color(Turquoise),
+			Color(Lime Green), Color(Black), Color(Rose), Color(Violet), Color(Gray));
+		Global.OrbColorNebula = Workshop Setting Combo(Custom String("Nebula's Mod"), Custom String("Orb Number Color"), 4, Array(
+			Custom String("White"), Custom String("Yellow"), Custom String("Green"), Custom String("Purple"), Custom String("Red"),
+			Custom String("Blue"), Custom String("Aqua"), Custom String("Orange"), Custom String("Sky Blue"), Custom String("Turquoise"),
+			Custom String("Lime Green"), Custom String("Black"), Custom String("Rose"), Custom String("Violet"), Custom String("Gray")),
+			0);
+	}
+}
