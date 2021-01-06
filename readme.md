@@ -85,7 +85,7 @@ You are unable to set a single checkpoint to both 3 Orb and 2 Orb. It will defau
 ![Inspector Global Drop-Down](images/InspectorGlobal.jpg)
 3. Click the "(x)" button directly to the left of the drop-down menu which will copy to clipboard all global variables as workshop actions.  
 ![Inspector Copy](images/CopyInspector.jpg)
-4. In the Workshop Editor, create a new temporary rule by pressing the blue "+" in the top right corner of the Workshop Editor. 
+4. In the Workshop Editor, create a new temporary rule by pressing the blue "+" in the top right corner of the Workshop Editor.  
 ![New Rule](images/AddRule.jpg)
 5. Paste what you copied from the Inspector into the *actions* section of the rule you just created. 
 The only actions you will need in this list are the last two.   
