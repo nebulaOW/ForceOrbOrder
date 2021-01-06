@@ -80,7 +80,7 @@ rule("Global init")
 		Global._extendedGlobalCollection[2] = Workshop Setting Real(Custom String("Josbird's Cursor Menu"), Custom String("Menu Height"),
 			2.500, 0, 5, 2);
 		Global._extendedGlobalCollection[6] = Workshop Setting Toggle(Custom String("Josbird's Cursor Menu"), Custom String(
-			"Button click sounds"), True, 3);
+			"Button click sounds"), False, 3);
 		Global._extendedGlobalCollection[5] = Workshop Setting Toggle(Custom String("Josbird's Cursor Menu"), Custom String(
 			"Debug mode (show button click areas)"), False, 4);
 		Global._extendedGlobalCollection[7] = Workshop Setting Toggle(Custom String("Josbird's Cursor Menu"), Custom String(
@@ -589,6 +589,7 @@ rule("CParray Populate | Nebula's Mod | Disable after use!")
 	}
 }
 
+
 rule("Checkpoint Finder | Mark 3 Orb | Nebula's Mod | Disable after use!")
 {
 	event
@@ -606,10 +607,12 @@ rule("Checkpoint Finder | Mark 3 Orb | Nebula's Mod | Disable after use!")
 	actions
 	{
 		If(Global.CParray3orb[Event Player.Checkpoint] == False);
+			Play Effect(Event Player, Debuff Impact Sound, Color(White), Event Player, 30);
 			Small Message(Event Player, Custom String("Setting checkpoint {0} to a True 3 Orb", Event Player.Checkpoint));
 			Global.CParray3orb[Event Player.Checkpoint] = True;
 			Global.CParray2orb[Event Player.Checkpoint] = False;
 		Else If(Global.CParray3orb[Event Player.Checkpoint] == True);
+			Play Effect(Event Player, Explosion Sound, Color(White), Event Player, 30);
 			Small Message(Event Player, Custom String("Setting checkpoint {0} to a False 3 Orb", Event Player.Checkpoint));
 			Global.CParray3orb[Event Player.Checkpoint] = False;
 		End;
@@ -633,10 +636,12 @@ rule("Checkpoint Finder | Mark 2 Orb | Nebula's Mod | Disable after use!")
 	actions
 	{
 		If(Global.CParray2orb[Event Player.Checkpoint] == False);
+			Play Effect(Event Player, Debuff Impact Sound, Color(White), Event Player, 30);
 			Small Message(Event Player, Custom String("Setting checkpoint {0} to a True 2 Orb", Event Player.Checkpoint));
 			Global.CParray2orb[Event Player.Checkpoint] = True;
 			Global.CParray3orb[Event Player.Checkpoint] = False;
 		Else If(Global.CParray2orb[Event Player.Checkpoint] == True);
+			Play Effect(Event Player, Explosion Sound, Color(White), Event Player, 30);
 			Small Message(Event Player, Custom String("Setting checkpoint {0} to a False 2 Orb", Event Player.Checkpoint));
 			Global.CParray2orb[Event Player.Checkpoint] = False;
 		End;
