@@ -86,10 +86,11 @@ You are unable to set a single checkpoint to both 3 Orb and 2 Orb. It will defau
 3. Click the "(x)" button directly to the left of the drop-down menu which will copy to clipboard all global variables as workshop actions.  
 ![Inspector Copy](images/CopyInspector.jpg)
 4. Paste what you copied from the Inspector into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule.    
-The only actions you will need in this list are the last two. They define the variables *CParray2orb* and *CParray3orb*.  
+The only actions you will need in this list are the last two. They define the variables *CParray2orb* and *CParray3orb*.
+![Two Arrays](images/TwoArrays.jpg)
 5. Use the *Select All* button in the *actions* section and uncheck the two arrays *CParray2orb* and *CParray3orb*.  
 6. Use the *Delete* button in the *actions* section to delete all unnecessary data.
-![Two Arrays](images/TwoArrays.jpg)
+
 
 ## STEP FOUR:  
 1. Disable the Hax Framework rule named *TCD detect*.   
