@@ -98,6 +98,7 @@ They define the variables *CParray2orb* and *CParray3orb*.
 2. Disable or delete the 24 rules that were pasted in step two.  
 **WARNING: AFTER CLICKING DELETE, ENSURE THE MESSAGE SAYS 24 RULES. YOU MAY ACCIDENTALLY DELETE NECESSARY RULES.**
 ![Delete Rules](images/DeleteRules.jpg)
+![Delete Rules](images/Delete24.jpg)
 
 ## STEP FIVE:  
 1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.  
