@@ -70,6 +70,7 @@ Otherwise, you may have to reposition the orbs!
 ## STEP TWO:
 IN THE KNEAT TEMPLATE:
 1. Copy and paste the contents of *Checkpoint_Marking_System.txt* into your live map and reload.  
+![Paste Rule](images/PasteRule.jpg)
 2. Press *Melee* to open (and close) the menu.  
 3. Click *Populate* in the menu; this will initialize the marking arrays and the button will disappear.  
 Two new buttons (*Mark 2 Orb* and *Mark 3 Orb*) will appear.  
@@ -81,23 +82,31 @@ You are unable to set a single checkpoint to both 3 Orb and 2 Orb. It will defau
 ## STEP THREE: 
 1. Press *Esc* and then click the *Open Workshop Inspector* button.  
 2. Select *Global* from the drop down menu in the bottom right corner of the Inspector.  
+![Inspector Global Drop-Down](images/InspectorGlobal.jpg)
 3. Click the "(x)" button directly to the left of the drop-down menu which will copy to clipboard all global variables as workshop actions.  
-4. In the Workshop Editor, create a new temporary rule by pressing the blue "+" in the top right corner of the Workshop Editor.  
-5. Paste what you copied from the Inspector into the *actions* section of the rule you just created.  
+![Inspector Copy](images/CopyInspector.jpg)
+4. In the Workshop Editor, create a new temporary rule by pressing the blue "+" in the top right corner of the Workshop Editor. 
+![New Rule](images/AddRule.jpg)
+5. Paste what you copied from the Inspector into the *actions* section of the rule you just created. 
 The only actions you will need in this list are the last two.   
 They define the variables *CParray2orb* and *CParray3orb*.  
+![Two Arrays](images/TwoArrays.jpg)
 
 ## STEP FOUR:  
 1. Disable the Hax Framework rule named *TCD detect*.   
+![Disable Rule](images/DisableRule.jpg)
 2. Disable or delete the 24 rules that were pasted in step two.  
 **WARNING: AFTER CLICKING DELETE, ENSURE THE MESSAGE SAYS 24 RULES. YOU MAY ACCIDENTALLY DELETE NECESSARY RULES.**
+![Delete Rules](images/DeleteRules.jpg)
 
 ## STEP FIVE:  
 1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.  
 2. Return to the temporary rule created in step three.
 3. Copy both arrays (*CParray2orb* and *CParray3orb*).
-4. Paste into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule
-5. Delete the temporary rule created in step three.
+![Copy Arrays](images/TempRuleCopy.jpg)
+4. Paste into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule  
+![Paste Actions](images/PasteActions.jpg)
+5. Delete the temporary rule created in step three.  
 6. Reload.
 
 ## CUSTOMIZATION:
