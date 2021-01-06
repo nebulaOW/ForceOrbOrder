@@ -90,6 +90,7 @@ They define the variables *CParray2orb* and *CParray3orb*.
 ## STEP FOUR:  
 1. Disable the Hax Framework rule named *TCD detect*.   
 2. Disable or delete the 24 rules that were pasted in step two.  
+**WARNING: AFTER CLICKING DELETE, ENSURE THE MESSAGE SAYS 24 RULES. YOU MAY ACCIDENTALLY DELETE NECESSARY RULES.**
 
 ## STEP FIVE:  
 1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.  
