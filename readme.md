@@ -69,7 +69,7 @@ Otherwise, you may have to reposition the orbs!
 
 ## STEP TWO:
 IN THE KNEAT TEMPLATE:
-1. Copy and paste the entire *Checkpoint_Marking_System.txt* file into your live map and reload.  
+1. Copy and paste the contents of *Checkpoint_Marking_System.txt* into your live map and reload.  
 2. Press *Melee* to open (and close) the menu.  
 3. Click *Populate* in the menu; this will initialize the marking arrays and the button will disappear.  
 Two new buttons (*Mark 2 Orb* and *Mark 3 Orb*) will appear.  
@@ -82,16 +82,17 @@ You are unable to set a single checkpoint to both 3 Orb and 2 Orb. It will defau
 1. Press *Esc* and then click the *Open Workshop Inspector* button.  
 2. Select *Global* from the drop down menu in the bottom right corner of the Inspector.  
 3. Click the "(x)" button directly to the left of the drop-down menu which will copy to clipboard all global variables as workshop actions.  
-4. In the Workshop Editor, create a new temporary rule and paste into the *actions* section.  
-There will be a bunch of variables but you are only interested in the last two that are listed.  
-They are named *CParray2orb* and *CParray3orb*.  
+4. In the Workshop Editor, create a new temporary rule by pressing the blue "+" in the top right corner of the Workshop Editor.  
+5. Paste what you copied from the Inspector into the *actions* section of the rule you just created.  
+The only actions you will need in this list are the last two.   
+They define the variables *CParray2orb* and *CParray3orb*.  
 
 ## STEP FOUR:  
 1. Disable the Hax Framework rule named *TCD detect*.   
 2. Disable or delete the 24 rules that were pasted in step two.  
 
 ## STEP FIVE:  
-1. Copy and paste *Nebulas_Mod.txt* into your live map.  
+1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.  
 2. Return to the temporary rule created in step three.
 3. Copy both arrays (*CParray2orb* and *CParray3orb*).
 4. Paste into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule
