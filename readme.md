@@ -101,14 +101,8 @@ The only actions you will need in this list are the last two. They define the va
 ![Delete Rules](images/Delete24.png)
 
 ## STEP FIVE:  
-1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.  
-2. Return to the temporary rule created in step three.
-3. Copy both arrays (*CParray2orb* and *CParray3orb*).
-![Copy Arrays](images/TempRuleCopy.jpg)
-4. Paste into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule  
-![Paste Actions](images/PasteActions.jpg)
-5. Delete the temporary rule created in step three.  
-6. Reload.
+1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.   
+2. Reload.
 
 ## CUSTOMIZATION:
 - There is a drop-down menu in Workshop Settings that will change the color of the numbers above the orbs.
