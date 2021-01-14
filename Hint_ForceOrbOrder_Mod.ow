@@ -8,6 +8,12 @@ variables
 		127: hintStringsArray
 
 	player:
+		117: LevelLengths
+		118: LevelCheckpoints
+		119: dataCorrector
+		120: orbHintArrayCopy
+		121: hintStringsArrayCopy
+		122: deletedLevel
 		123: currentHintCP
 		124: autoHintCounter
 		125: confirmDelete
@@ -17,10 +23,10 @@ variables
 
 subroutines
 {
+	36: CPfail
 	126: DisableControls
 	127: EnableControls
 }
-
 
 rule("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒    Hints / Force Orb Order Mod    ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒")
 {
@@ -36,7 +42,7 @@ rule("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒�
 	}
 }
 
-rule("Global Variables Initilization | Hint / Force Orb Order Mod")
+rule("Global Variables Initilization ------------------------ Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -51,7 +57,7 @@ rule("Global Variables Initilization | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("Menu HUD | Hint / Force Orb Order Mod")
+rule("Menu HUD ----------------------------------------------- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -72,18 +78,18 @@ rule("Menu HUD | Hint / Force Orb Order Mod")
 			Call Subroutine(DisableControls);
 			Create HUD Text(Event Player, Null, Null, Y Component Of(Global.orbHintArray[Event Player.Checkpoint])
 				? Global.menuItems[5] : Global.menuItems[2], Top, -46, Null, Null, Event Player.currentMenuSelection == 2 ? Color(Blue)
-				: Color(White), String and Color, Default Visibility);
+				: Color(White), Visible To String and Color, Default Visibility);
 			Modify Global Variable(menuTextCollector, Append To Array, Last Text ID);
 			Create HUD Text(Event Player, Null, Null, X Component Of(Global.orbHintArray[Event Player.Checkpoint])
 				? Global.menuItems[4] : Global.menuItems[1], Top, -46, Null, Null, Event Player.currentMenuSelection == 1 ? Color(Blue)
-				: Color(White), String and Color, Default Visibility);
+				: Color(White), Visible To String and Color, Default Visibility);
 			Modify Global Variable(menuTextCollector, Append To Array, Last Text ID);
 			Create HUD Text(Event Player, Null, Null, Global.menuItems[0], Top, -46, Null, Null,
-				Event Player.currentMenuSelection == 0 ? Color(Blue) : Color(White), String and Color, Default Visibility);
+				Event Player.currentMenuSelection == 0 ? Color(Blue) : Color(White), Visible To String and Color, Default Visibility);
 			Modify Global Variable(menuTextCollector, Append To Array, Last Text ID);
 			Create HUD Text(Event Player, Null, Null, Z Component Of(Global.orbHintArray[Event Player.Checkpoint])
 				? Global.menuItems[6] : Global.menuItems[3], Top, -45, Null, Null, Event Player.currentMenuSelection == 3 ? Color(Blue)
-				: Color(White), String and Color, Default Visibility);
+				: Color(White), Visible To String and Color, Default Visibility);
 			Modify Global Variable(menuTextCollector, Append To Array, Last Text ID);
 		Else;
 			Destroy HUD Text(Global.menuTextCollector[0]);
@@ -97,7 +103,7 @@ rule("Menu HUD | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("Change Menu Selection | Hint / Force Orb Order Mod")
+rule("Change Menu Selection ----------------------------- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -130,7 +136,7 @@ rule("Change Menu Selection | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("Disable Controls | Hint / Force Orb Order Mod")
+rule("Disable Controls --------------------------------------- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -150,7 +156,7 @@ rule("Disable Controls | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("Enable Controls | Hint / Force Orb Order Mod")
+rule("Enable Controls --------------------------------------- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -170,8 +176,7 @@ rule("Enable Controls | Hint / Force Orb Order Mod")
 	}
 }
 
-
-rule("Left Click Activate Selection | Hint / Force Orb Order Mod")
+rule("Left Click Activate Selection ----------------------- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -193,22 +198,30 @@ rule("Left Click Activate Selection | Hint / Force Orb Order Mod")
 			Play Effect(Event Player, Buff Explosion Sound, Color(White), Event Player, 30);
 			"Populate arrays if no previous installation"
 			If(Count Of(Global.orbHintArray) == 0);
-				Small Message(Event Player, Custom String("Populating arrays. . ."));
+				Small Message(Event Player, Custom String("Installing Hint / Force Orb Order Mod."));
 				Global.hintStringsArray = Mapped Array(Global.CPposition, Null);
 				Global.orbHintArray = Mapped Array(Global.CPposition, Vector(0, 0, 0));
+				Wait(1, Ignore Condition);
+				Small Message(Event Player, Custom String("Installation complete."));
 			"If there are new checkpoints, create new entries in orbHintArray"
 			Else If(Count Of(Global.orbHintArray) < Count Of(Global.CPposition));
-				Small Message(Event Player, Custom String("Current Data out of sync: re-populating..."));
-				Small Message(Event Player, Custom String("Copy Global Variables from Inspector and re-paste"));
+				Small Message(Event Player, Custom String("Current Data out of sync: synchronizing."));
 				"For each new checkpoint append a new empty vector entry"
 				For Global Variable(tempIterator, Count Of(Global.orbHintArray), Count Of(Global.CPposition), 1);
 					Modify Global Variable(orbHintArray, Append To Array, Vector(0, 0, 0));
 					Modify Global Variable(hintStringsArray, Append To Array, Null);
+					Wait(0.016, Ignore Condition);
 				End;
+				Wait(1, Ignore Condition);
+				Small Message(Event Player, Custom String("Synchronization complete."));
+				Wait(1, Ignore Condition);
+				Small Message(Event Player, Custom String("Copy Global Variables from Inspector and re-paste"));
 			"Corrupt Data"
 			Else If(Count Of(Global.orbHintArray) > Count Of(Global.CPposition));
 				If(Event Player.confirmDelete == False);
-					Small Message(Event Player, Custom String("Data Corrupt! Are you sure you want to delete? Click again to delete."));
+					Small Message(Event Player, Custom String(
+						"Data Corrupt! Did you delete a level? Use Data Corrector in Workshop Editor to fix this error!"));
+					Small Message(Event Player, Custom String("WARNING: If you click again your data will be deleted! Close the menu to CANCEL!"));
 					Event Player.confirmDelete = True;
 				Else;
 					Global.hintStringsArray = Mapped Array(Global.CPposition, Null);
@@ -300,7 +313,7 @@ rule("Left Click Activate Selection | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("Using Interact with this mod closes menu. | Hint / Force Orb Order Mod")
+rule("Using Interact with this mod closes menu. ---- Hint / Force Orb Order Mod --- DISABLE AFTER USING!!")
 {
 	event
 	{
@@ -336,7 +349,7 @@ rule("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒�
 	}
 }
 
-rule("Display Hints | Hint / Force Orb Order Mod")
+rule("Display Hints ------------------------------------------- Hint / Force Orb Order Mod")
 {
 	event
 	{
@@ -361,7 +374,7 @@ rule("Display Hints | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("autoHintCounter Reset | Hint / Force Orb Order Mod")
+rule("autoHintCounter Reset ----------------------------- Hint / Force Orb Order Mod")
 {
 	event
 	{
@@ -381,7 +394,7 @@ rule("autoHintCounter Reset | Hint / Force Orb Order Mod")
 	}
 }
 
-rule("TCD detect Modded | Hint / Force Order Mod")
+rule("TCD detect Modded --------------------------------- Hint / Force Orb Order Mod")
 {
 	event
 	{
@@ -427,48 +440,45 @@ rule("TCD detect Modded | Hint / Force Order Mod")
 				Set Ability 2 Enabled(Event Player, Event Player.TCDtim[Event Player.TCDdetect - True] % 5 ? True : False);
 			End;
 			If(Array Contains(Event Player.Lock, True));
-			
 				"2 Orb"
 				If(Y Component Of(Global.orbHintArray[Event Player.Checkpoint]) == True);
 					"Allow if in order"
-					If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
-						!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True));
-						If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
-							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+					If(Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
+						!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True);
+						If(Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True);
 							Event Player.Lock = False;
 						End;
 					"If arrive at TCD2pos / Z Component of TCD, deny"
-					Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
-							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+					Else If(Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True);
 						Call Subroutine(CPfail);
 					End;
-					
 				"3 Orb"
 				Else If(Z Component Of(Global.orbHintArray[Event Player.Checkpoint]) == True);
 					"Allow if in order"
-					If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
-						!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True));
-						If((Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
-							!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True));
-							If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
-								!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+					If(Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
+						!= 9999 ? Event Player.TCDFdisplay[False] || Event Player.TCDFdisplay[3] : True);
+						If(Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
+							!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True);
+							If(Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+								!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True);
 								Event Player.Lock = False;
 							End;
 						"Checks 1->3 Orb order"
-						Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
-								!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
-								Call Subroutine(CPfail);
+						Else If(Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+								!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True);
+							Call Subroutine(CPfail);
 						End;
 					"If arrive at TCD2pos / Z Component of TCD, deny"
-					Else If((Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
-							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True));
+					Else If(Global.TCD2pos[Event Player.Checkpoint] && Absolute Value(Z Component Of(Global.TCD[Event Player.Checkpoint]))
+							!= 9999 ? Event Player.TCDFdisplay[1] || Event Player.TCDFdisplay[4] : True);
 						Call Subroutine(CPfail);
 					"If arrive at TCD3pos / Y Component of TCD2, deny"
-					Else If((Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
-							!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True));
+					Else If(Global.TCD3pos[Event Player.Checkpoint] && Absolute Value(Y Component Of(Global.TCD2[Event Player.Checkpoint]))
+							!= 9999 ? Event Player.TCDFdisplay[2] || Event Player.TCDFdisplay[5] : True);
 						Call Subroutine(CPfail);
 					End;
-
 				"Unmarked, vanilla orbs"
 				Else;
 					If((Global.TCDpos[Event Player.Checkpoint] && Absolute Value(X Component Of(Global.TCD[Event Player.Checkpoint]))
@@ -504,7 +514,7 @@ rule("TCD detect Modded | Hint / Force Order Mod")
 	}
 }
 
-rule("Ordered Orb Text for KNEAT | Hint / Force Orb Order Mod")
+rule("Ordered Orb Text for KNEAT --------------------- Hint / Force Orb Order Mod")
 {
 	event
 	{
@@ -515,26 +525,107 @@ rule("Ordered Orb Text for KNEAT | Hint / Force Orb Order Mod")
 
 	actions
 	{
-			Create In-World Text(Event Player, !Event Player.TCDFdisplay[3] == True && 
-				(Y Component Of(Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint])) == True ? 
-				Custom String("1") : Custom String(""), Global.TCDpos[Event Player.Checkpoint] + Vector(0,.5,0),
-				1.5, Clip Against Surfaces, Visible To Position and String, Global.LvlColors[Event Player.Level], Default Visibility);
-			
-			Create In-World Text(Event Player, !Event Player.TCDFdisplay[4] == True && 
-				(Y Component Of(Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint])) == True ? 
-				(Global.TCD3pos[Event Player.Checkpoint] ? Custom String("3") : Custom String("2")) : Custom String(""),
-				Global.TCD2pos[Event Player.Checkpoint] + Vector(0,.5,0), 
-				1.5, Clip Against Surfaces, Visible To Position and String, Global.LvlColors[Event Player.Level], Default Visibility);
-				
-			Create In-World Text(Event Player, !Event Player.TCDFdisplay[5] == True && 
-				(Y Component Of(Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint])) == True ? 
-				(Global.TCD2pos[Event Player.Checkpoint] ? Custom String("2") : Custom String("3")) : Custom String(""), 
-				Global.TCD3pos[Event Player.Checkpoint] + Vector(0,.5,0), 
-				1.5, Clip Against Surfaces, Visible To Position and String, Global.LvlColors[Event Player.Level], Default Visibility);
+		Create In-World Text(Event Player, !Event Player.TCDFdisplay[3] == True && (Y Component Of(
+			Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint]))
+			== True ? Custom String("1") : Custom String(""), Global.TCDpos[Event Player.Checkpoint] + Vector(0, 0.500, 0), 1.500,
+			Clip Against Surfaces, Visible To Position and String, Global.LvlColors[Event Player.Level], Default Visibility);
+		Create In-World Text(Event Player, !Event Player.TCDFdisplay[4] == True && (Y Component Of(
+			Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint])) == True ? (
+			Global.TCD3pos[Event Player.Checkpoint] ? Custom String("3") : Custom String("2")) : Custom String(""),
+			Global.TCD2pos[Event Player.Checkpoint] + Vector(0, 0.500, 0), 1.500, Clip Against Surfaces, Visible To Position and String,
+			Global.LvlColors[Event Player.Level], Default Visibility);
+		Create In-World Text(Event Player, !Event Player.TCDFdisplay[5] == True && (Y Component Of(
+			Global.orbHintArray[Event Player.Checkpoint]) || Z Component Of(Global.orbHintArray[Event Player.Checkpoint])) == True ? (
+			Global.TCD2pos[Event Player.Checkpoint] ? Custom String("2") : Custom String("3")) : Custom String(""),
+			Global.TCD3pos[Event Player.Checkpoint] + Vector(0, 0.500, 0), 1.500, Clip Against Surfaces, Visible To Position and String,
+			Global.LvlColors[Event Player.Level], Default Visibility);
 	}
 }
 
-rule("Paste Orb / Hint Data Here | Hint / Force Orb Order Mod")
+disabled rule("README ----------------------------------------------- Data Corrector  --- DISABLE AFTER USING!!")
+{
+	event
+	{
+		Ongoing - Global;
+	}
+
+	conditions
+	{
+		"1. Enable the SETUP and Data Corrector Rules below.                                                                2. Add the amount of checkpoints for each level in order(including the deleted level) to the LevelLengths array variable."
+		disabled 0 + 0 == True;
+		"3. Set the deletedLevel variable to the level that was deleted.                                                    4. Set the dataCorrector variable True."
+		disabled True == True;
+	}
+
+	actions
+	{
+		"5. Restart the lobby, and open the Workshop Inspector.                                                          6. Copy the Global variables (drop down menu) by pressing the (x) button"
+		disabled Break;
+		"7. Save the new Global variables and replace the Hint / Orb data arrays with the new Hint / Orb data arrays from your clipboard. This is the same process as saving Hint / Orb data arrays for the first time."
+		disabled Abort;
+	}
+}
+
+disabled rule("SETUP - ADD LEVEL LENGTHS HERE ----- Data Corrector  --- DISABLE AFTER USING!!")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	actions
+	{
+		"EDIT --- Add level lengths, keeping index 0 the same. Replace Null with level 1."
+		Event Player.LevelLengths = Array(1, Null);
+		"EDIT --- Set this variable to the level number that was deleted."
+		Event Player.deletedLevel = 0;
+		"EDIT --- Set this variable to True when you need to correct data."
+		Event Player.dataCorrector = False;
+	}
+}
+
+disabled rule("Data Corrector - DO NOT EDIT ---------------- Data Corrector  --- DISABLE AFTER USING!!")
+{
+	event
+	{
+		Ongoing - Each Player;
+		All;
+		All;
+	}
+
+	conditions
+	{
+		Event Player.dataCorrector == True;
+	}
+
+	actions
+	{
+		"Copys Global vars to Player Vars"
+		Event Player.orbHintArrayCopy = Mapped Array(Global.orbHintArray, Current Array Element);
+		Event Player.hintStringsArrayCopy = Mapped Array(Global.hintStringsArray, Current Array Element);
+		"Reset Global vars"
+		Global.orbHintArray = Array();
+		Global.hintStringsArray = Array();
+		"Create checkpoint starting locations for each level, Event Player.LevelCheckpoints"
+		For Global Variable(tempIterator, 0, Count Of(Event Player.LevelLengths), 1);
+			Event Player.LevelCheckpoints[Global.tempIterator] = Global.tempIterator == 0 ? 1 : Event Player.LevelLengths[Global.tempIterator] - 1 + Event Player.LevelCheckpoints[Global.tempIterator - 1];
+			Wait(0.016, Ignore Condition);
+		End;
+		"Iterate through old data(as Player var), appending correct indices to Global var"
+		For Global Variable(tempIterator, 0, Count Of(Event Player.orbHintArrayCopy), 1);
+			If(
+				Global.tempIterator <= Event Player.LevelCheckpoints[Event Player.deletedLevel - 1] && Global.tempIterator > Event Player.LevelCheckpoints[Event Player.deletedLevel]);
+				Modify Global Variable(orbHintArray, Append To Array, Event Player.orbHintArrayCopy[Global.tempIterator]);
+				Modify Global Variable(hintStringsArray, Append To Array, Event Player.hintStringsArrayCopy[Global.tempIterator]);
+			End;
+			Wait(0.016, Ignore Condition);
+		End;
+	}
+}
+
+rule("Paste Orb / Hint Data Here ----------------------- Hint / Force Orb Order Mod")
 {
 	event
 	{
