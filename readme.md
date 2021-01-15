@@ -1,10 +1,18 @@
 # Nebula's Force Orb Order Mod for Hax Framework
 
+This mod requires Hax's Doomfist Parkour play template (CODE: KNEAT).
+
+This mod adds the ability to create hints for CPs of your choosing. 
+If a player fails a checkpoint that has been marked as a Hint CP, a small message (of your making) will appear briefly. The message will only display for the first 7 times that a player fails a particular CP. The player can also view the hint manually, any number of times, by pressing Melee.  Hints will only appear if Pro Mode is off.
+
+In addition, this mod adds the ability to force the order of picking up ability orbs. This is not to be used with any other orbs than **ability** orbs. Death orbs will **NOT** work. I have not tested any other orb but I assume they will all be broken on any checkpoint that uses this mod!  
+
+
 ## **WARNING:** 
 This is a modification to the KNEAT template made by Hax. BEFORE PASTING ANY CODE, MAKE SURE YOU ARE NOT OVERWRITING ANY EXISTING VARIABLES or SUBROUTINES. 
+
 Variables and subroutines in the workshop are numbered, check that the NEW variables and subroutines defined in this mod are free in your live map (ie. make sure its number is a free slot in the variable list (non-free variables are greyed out); if not, change its number to a number with a free slot).
 
-Additionally, this is not to be used with any other orbs than **ability** orbs. Death orbs will **NOT** work. I have not tested any other orb but I assume they will all be broken on any checkpoint that uses this mod!  
 
 ## REFERENCE FOR NEW VARIABLES/SUBROUTINES:
 ```
@@ -82,7 +90,6 @@ Don't worry if your arrays will not look the same as this; they will be much lon
 2. Disable the rules that are located between the two that look like:
 ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   
 
-![Delete Rules](images/DeleteRules.jpg)
 
 
 ## STEP FIVE: ENTERING HINT MESSAGES
