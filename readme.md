@@ -11,101 +11,85 @@ Additionally, this is not to be used with any other orbs than **ability** orbs. 
 variables
 {
 	global:
-		119: OrbColorArrayNebula
-		120: OrbColorNebula
-		121: exitButtonProperties
-		122: textBudget
-		123: _arrayBuilder
-		124: _extendedGlobalCollection
-		125: CParrayCreated
-		126: CParray3orb
-		127: CParray2orb	
+		123: tempIterator
+		124: menuItems
+		125: menuTextCollector
+		126: orbHintArray
+		127: hintStringsArray
 
 	player:
-		114: OrbButton3
-		115: OrbButton2
-		116: CParrayPopulateButton
-		117: _extendedPlayerCollection
-		118: getProperties
-		119: buttonModification
-		120: currActionID
-		121: destroyButtonID
-		122: lastMenuButtonID
-		123: buttons
-		124: newButton
-		125: menuOriginalFacing
-		126: menuFrame
-		127: isInMenu
+		117: LevelLengths
+		118: LevelCheckpoints
+		119: dataCorrector
+		120: orbHintArrayCopy
+		121: hintStringsArrayCopy
+		122: deletedLevel
+		123: currentHintCP
+		124: autoHintCounter
+		125: confirmDelete
+		126: menuIsOpen
+		127: currentMenuSelection
 }
 
 subroutines
 {
-	118: createMenuButton
-	119: destroyMenuButton
-	120: modifyMenuButton
-	121: getButtonProperties
-	122: createCursor
-	123: createBorderCorners
-	124: createBorderEdges
-	125: createExitButton
-	126: doButtonUpdate
-	127: createClickAreas
+	126: DisableControls
+	127: EnableControls
 }
 ```
 
-I recommend using Notepad++ as your text editor!
-
 # INSTALLATION
 
-## STEP ONE: 
+## STEP ONE: MAP CREATION
+
 **ATTENTION: Save your map data!!! Preferably in a .txt file!!!**  
+
 IN THE HAVVX TEMPLATE:  
-1. Copy and paste the code from the *HAVVX_Orb_Numbers.txt* file and reload.  
+1. Copy and paste the code from the [HAVVX_Orb_Numbers](HAVVX_Orb_Numbers.ow) file and reload.  
 This allows you to see clearly the order of the orbs while creating a checkpoint.  
 I suggest placing all orbs you will need *BEFORE* fine-tuning their size/position because the numbering changes during orb creation.  
 Otherwise, you may have to reposition the orbs!  
 
 **ATTENTION: Save your map data!!! Preferably in a .txt file!!!**  
 
-## STEP TWO:
+## STEP TWO: INSTALLATION / SYNCHRONIZATION / MARKING CHECKPOINTS
 IN THE KNEAT TEMPLATE:
-1. Copy and paste the contents of *Checkpoint_Marking_System.txt* into your live map and reload.  
+1. Copy and paste the contents of [Hint_ForceOrbOrder_Mod](Hint_ForceOrbOrder_Mod.ow) into your live map and reload.  
 ![Paste Rule](images/PasteRule.jpg)
-2. Press *Melee* to open (and close) the menu.  
-3. Click *Populate* in the menu; this will initialize the marking arrays and the button will disappear.  
-Two new buttons (*Mark 2 Orb* and *Mark 3 Orb*) will appear.  
-4. Navigate to the checkpoints that require this mod and click the corresponding button.  
-A small message will appear on screen showing that the checkpoint has been set to *True*.  
-If you accidentally mark a checkpoint, press the same button again and a message will appear on screen saying the checkpoint has been set to *False*.  
+2. Press any *Spray* to open (and close) the menu.  
+3. Click *Synchronize* to install; this will initialize the marking arrays. You can click this button at any time to ensure data is synced!    
+4. Navigate to the checkpoints that require this mod, open the menu, and click the corresponding button to mark the checkpoint as *Hint*, *2 Orb*, or *3 Orb*.  
+A small message will appear on screen showing that the checkpoint has been set to *True*.   
 You are unable to set a single checkpoint to both 3 Orb and 2 Orb. It will default to the last selection.  
 
-## STEP THREE: 
+## STEP THREE: SAVING DATA
 1. Press *Esc* and then click the *Open Workshop Inspector* button.  
 2. Select *Global* from the drop down menu in the bottom right corner of the Inspector.  
 ![Inspector Global Drop-Down](images/InspectorGlobal.jpg)
 3. Click the "(x)" button directly to the left of the drop-down menu which will copy to clipboard all global variables as workshop actions.  
 ![Inspector Copy](images/CopyInspector.jpg)
-4. Paste what you copied from the Inspector into the *actions* section of the *Global CParray Initialize | Nebula's Mod* rule.    
-The only actions you will need in this list are the last two. They define the variables *CParray2orb* and *CParray3orb*.
+4. Paste what you copied from the Inspector into the *actions* section of the *Paste Orb / Hint Data Here* rule which is located at the bottom of the rule list.    
+The only actions you will need in this list are the last two. They define the variables *Global.orbHintArray* and *Global.hintStringsArray*.
 ![Two Arrays](images/TwoArrays.jpg)  
-Your arrays will not look the same as this; they will be much longer.  
-5. Use the *Select All* button in the *actions* section and uncheck the two arrays *CParray2orb* and *CParray3orb*.  
+Don't worry if your arrays will not look the same as this; they will be much longer.  
+5. Use the *Select All* button in the *actions* section and uncheck the two arrays *Global.orbHintArray* and *Global.hintStringsArray*. 
 6. Use the *Delete* button in the *actions* section to delete all unnecessary data.
 
 
-## STEP FOUR:  
-1. Disable the Hax Framework rule named *TCD detect*.   
+## STEP FOUR: DISABLING RULES
+1. Disable the Hax Framework rule named *TCD detect*. If this is not done, this mod may not work properly!  
 ![Disable Rule](images/DisableRule.jpg)
-2. Disable or delete the 24 rules that were pasted in step two.  
-**WARNING: AFTER CLICKING DELETE, ENSURE THE MESSAGE SAYS 24 RULES. YOU MAY ACCIDENTALLY DELETE NECESSARY RULES.**
+2. Disable the rules that are located between the two that look like:
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒   
+
 ![Delete Rules](images/DeleteRules.jpg)
-![Delete Rules](images/Delete24.png)
-
-## STEP FIVE:  
-1. Copy and paste the contents of *Nebulas_Mod.txt* into your live map.   
-2. Reload.
-
-## CUSTOMIZATION:
-- There is a drop-down menu in Workshop Settings that will change the color of the numbers above the orbs.
 
 
+## STEP FIVE: ENTERING HINT MESSAGES
+The variable, *Global.hintStringsArray*, contains the text that will appear as a hint.
+1. In the text editor, replace the dummy text with your Hint Messages where appropriate. 
+	- *NOTE*: Keep your Hint Message brief! It should not exceed one line.  
+
+	- *NOTE*: any text in a Custom String MUST be placed bewteen quotations: eg. Custom String("[your text here]") will display: [your text here]
+2. *(Optional)* Save the .txt file as Hint Data.txt for safety 
+3. Now, Select All, copy, and paste these updated actions into the "Paste Orb / Hint Data Here" Rule and delete the old *Global.hintStringsArray*.
