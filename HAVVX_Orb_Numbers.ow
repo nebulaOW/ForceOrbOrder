@@ -1,4 +1,4 @@
-rule("Order Text For HAVVX | Nebula's Mod")
+rule("Order Text For HAVVX -------------------------- Force Orb Order Mod")
 {
 	event
 	{

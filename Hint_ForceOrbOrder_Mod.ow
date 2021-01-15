@@ -23,7 +23,6 @@ variables
 
 subroutines
 {
-	36: CPfail
 	126: DisableControls
 	127: EnableControls
 }
